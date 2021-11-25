@@ -2,11 +2,13 @@ package testeApi.teste;
 
 import org.apache.http.HttpStatus;
 import org.junit.Test;
+import org.junit.runners.Suite;
 import testeApi.dominio.Proposta;
 
 import static io.restassured.RestAssured.given;
 import static org.hamcrest.CoreMatchers.*;
 import static org.hamcrest.MatcherAssert.assertThat;
+
 
 public class SimulacaoTeste extends BaseTeste{
 
@@ -47,10 +49,10 @@ public class SimulacaoTeste extends BaseTeste{
     // Serialização
     @Test
     public void testInsereUmaSimulacaoDuplicada(){
-        Proposta proposta = new Proposta("46103203805",
-                "Guilherme Diniz",
-                "dinizdesousaguilherme@gmail.com",
-                1200,
+        Proposta proposta = new Proposta("66414919004",
+                "Fulano",
+                "fulano@gmail.com",
+                11000,
                 3,
                 true);
         given().
@@ -86,7 +88,7 @@ public class SimulacaoTeste extends BaseTeste{
     @Test
     public void testRetornaUmaSimulacaoPeloCpf(){
         final Proposta proposta = given().
-                    pathParam("cpf", "97093236014").
+                    pathParam("cpf", "66414919004").
                 when().
                     get(MOSTRAR_SIMULACAO_ENDPOINT).
                 then().
@@ -94,8 +96,8 @@ public class SimulacaoTeste extends BaseTeste{
                 extract().
                     as(Proposta.class);
 
-        assertThat(proposta.getCpf(), is("97093236014"));
-        assertThat(proposta.getEmail(), containsString("@email.com"));
-        assertThat(proposta.getNome(), is("Fulano de Tal"));
+        assertThat(proposta.getCpf(), is("66414919004"));
+        assertThat(proposta.getEmail(), containsString("@gmail.com"));
+        assertThat(proposta.getNome(), is("Fulano"));
     }
 }
